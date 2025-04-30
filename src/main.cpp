@@ -2,6 +2,7 @@
 #include <Wire.h>
 #include <Adafruit_SH110X.h>
 
+#include "util.h"
 #include "memory_game.h"
 #include "whack_game.h"
 
@@ -46,17 +47,16 @@ void startGame(int index) {
   display.println(games[index]);
   display.display();
 
-  delay(1000);  // simulate load
+  
+  turnOffAllLeds(ledPins, 6); // Turn off all LEDs before starting a game
 
   if (index == 0) {
     memoryGame(buttonPins, ledPins, display);
-    inMenu = true;
-    showMenu();
   } else if (index == 1) {
     whackGame(buttonPins, ledPins, display);
-    inMenu = true;
-    showMenu();
   }
+  inMenu = true;
+  showMenu();
 }
 
 void setup() {
@@ -101,7 +101,7 @@ void loop() {
     }
     if (select) {
       inMenu = false;
-      digitalWrite(ledPins[2], HIGH);
+      // digitalWrite(ledPins[2], HIGH);
       startGame(selectedGame);
       delay(500);  // debounce
     }

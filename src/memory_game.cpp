@@ -15,9 +15,9 @@ void playSequence(const int ledPins[], uint8_t length) {
   for (uint8_t i = 0; i < length; i++) {
     int index = sequence[i];
 
-    digitalWrite(ledPins[index], LOW);
-    delay(400);
     digitalWrite(ledPins[index], HIGH);
+    delay(400);
+    digitalWrite(ledPins[index], LOW);
     delay(200);
   }
 }
@@ -30,9 +30,9 @@ bool getPlayerInput(const int buttonPins[], const int ledPins[], uint8_t length)
     while (!pressed && millis() - start < 10000) {  // 10s timeout
       for (uint8_t j = 0; j < MAX_BUTTONS; j++) {
         if (!digitalRead(buttonPins[j])) {
-          digitalWrite(ledPins[j], LOW);
-          delay(300);
           digitalWrite(ledPins[j], HIGH);
+          delay(300);
+          digitalWrite(ledPins[j], LOW);
 
           if (j != sequence[i]) return false;
 
@@ -82,7 +82,7 @@ void memoryGame(const int buttonPins[], const int ledPins[], Adafruit_SH1106G& d
       display.println(currentLength - 1);
       display.display();
       delay(4000);
-      
+
       break;
     }
 

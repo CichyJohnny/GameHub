@@ -20,7 +20,7 @@ void whackGame(const int buttonPins[], const int ledPins[], Adafruit_SH1106G& di
         uint8_t target = random(0, MAX_BUTTONS);
 
         // Flash LED
-        digitalWrite(ledPins[target], LOW);
+        digitalWrite(ledPins[target], HIGH);
         unsigned long startTime = millis();
         bool hit = false;
 
@@ -37,7 +37,7 @@ void whackGame(const int buttonPins[], const int ledPins[], Adafruit_SH1106G& di
         if (hit) break;
         }
 
-        digitalWrite(ledPins[target], HIGH);
+        digitalWrite(ledPins[target], LOW);
         delay(200);
 
         display.clearDisplay();
