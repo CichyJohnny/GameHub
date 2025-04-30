@@ -2,6 +2,7 @@
 #include "globals.h"
 #include "memory_game.h"
 #include "whack_game.h"
+#include "direction_game.h"
 
 #include "util.h"
 
@@ -42,6 +43,10 @@ void startGame(int index) {
         case 1:
             whackGame();
             break;
+        case 2:
+            directionGame();
+            break;
+
         default:
             break;
     }
