@@ -1,6 +1,8 @@
 #ifndef UTIL_H
 #define UTIL_H
 
-void turnOffAllLeds(const int ledPins[], int numLeds);
+#include <Arduino.h>
+
+void turnOffAllLeds(const uint8_t ledPins[], uint8_t numLeds);
 
 #endif

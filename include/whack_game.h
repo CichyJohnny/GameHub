@@ -3,6 +3,6 @@
 
 #include <Adafruit_SH110X.h>
 
-void whackGame(const int buttonPins[], const int ledPins[], Adafruit_SH1106G& display);
+void whackGame(const uint8_t buttonPins[], const uint8_t ledPins[], Adafruit_SH1106G& display);
 
 #endif

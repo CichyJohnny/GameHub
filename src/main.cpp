@@ -14,11 +14,12 @@
 Adafruit_SH1106G display = Adafruit_SH1106G(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 // Buttons: 0 = LEFT, 1 = RIGHT, 2 = SELECT, others unused for now
-const int ledPins[6] = {2, 4, 6, 8, 10, 12};
-const int buttonPins[6] = {3, 5, 7, 9, 11, 13};
+const uint8_t ledPins[6] = {2, 4, 6, 8, 10, 12};
+const uint8_t buttonPins[6] = {3, 5, 7, 9, 11, 13};
 
 // === Game System ===
-const int NUM_GAMES = 3;
+const uint8_t MAX_BUTTONS = 3;
+const uint8_t NUM_GAMES = 3;
 const char* games[NUM_GAMES] = {"Memory", "Whack", "Tetris"};
 
 int selectedGame = 0;
@@ -26,85 +27,89 @@ bool inMenu = true;
 
 // === Helpers ===
 void showMenu() {
-  display.clearDisplay();
-  display.setTextSize(1);
-  display.setTextColor(SH110X_WHITE);
-  display.setCursor(10, 10);
-  display.println("== Select Game ==");
+    display.clearDisplay();
+    display.setTextSize(1);
+    display.setTextColor(SH110X_WHITE);
+    display.setCursor(10, 10);
+    display.println("== Select Game ==");
 
-  display.setCursor(30, 35);
-  display.setTextSize(2);
-  display.println(games[selectedGame]);
+    display.setCursor(30, 35);
+    display.setTextSize(2);
+    display.println(games[selectedGame]);
 
-  display.display();
+    display.display();
 }
 
 void startGame(int index) {
-  display.clearDisplay();
-  display.setTextSize(1);
-  display.setCursor(10, 20);
-  display.print("Starting: ");
-  display.println(games[index]);
-  display.display();
+    display.clearDisplay();
+    display.setTextSize(1);
+    display.setCursor(10, 20);
+    display.print("Starting: ");
+    display.println(games[index]);
+    display.display();
 
-  
-  turnOffAllLeds(ledPins, 6); // Turn off all LEDs before starting a game
+    turnOffAllLeds(ledPins, MAX_BUTTONS); // Turn off all LEDs before starting a game
 
-  if (index == 0) {
-    memoryGame(buttonPins, ledPins, display);
-  } else if (index == 1) {
-    whackGame(buttonPins, ledPins, display);
-  }
-  inMenu = true;
-  showMenu();
+    switch (index) {
+        case 0:
+            memoryGame(buttonPins, ledPins, display);
+            break;
+        case 1:
+            whackGame(buttonPins, ledPins, display);
+            break;
+        default:
+            break;
+    }
+
+    inMenu = true;
+    showMenu();
 }
 
 void setup() {
-  for (int i = 0; i < 6; i++) {
-    pinMode(ledPins[i], OUTPUT);
-    pinMode(buttonPins[i], INPUT_PULLUP);
-  }
+    for (int i = 0; i < 6; i++) {
+        pinMode(ledPins[i], OUTPUT);
+        pinMode(buttonPins[i], INPUT_PULLUP);
+    }
 
-  Serial.begin(9600);
-  delay(250);
+    Serial.begin(9600);
+    delay(250);
 
-  display.begin(i2c_Address, true);
-  display.display();
-  delay(500);
+    display.begin(i2c_Address, true);
+    display.display();
+    delay(500);
 
-  display.clearDisplay();
+    display.clearDisplay();
 
-  showMenu();
+    showMenu();
 }
 
 void loop() {
-  // Read buttons
-  bool left = !digitalRead(buttonPins[0]);
-  bool right = !digitalRead(buttonPins[1]);
-  bool select = !digitalRead(buttonPins[2]);
+    // Read buttons
+    bool left = !digitalRead(buttonPins[0]);
+    bool right = !digitalRead(buttonPins[1]);
+    bool select = !digitalRead(buttonPins[2]);
 
-  // LED feedback
-  digitalWrite(ledPins[0], left ? LOW : HIGH);
-  digitalWrite(ledPins[1], right ? LOW : HIGH);
-  digitalWrite(ledPins[2], select ? LOW : HIGH);
+    // LED feedback
+    digitalWrite(ledPins[0], left ? LOW : HIGH);
+    digitalWrite(ledPins[1], right ? LOW : HIGH);
+    digitalWrite(ledPins[2], select ? LOW : HIGH);
 
-  if (inMenu) {
-    if (left) {
-      selectedGame = (selectedGame - 1 + NUM_GAMES) % NUM_GAMES;
-      showMenu();
-      delay(200);  // debounce
+    if (inMenu) {
+        if (left) {
+            selectedGame = (selectedGame - 1 + NUM_GAMES) % NUM_GAMES;
+            showMenu();
+            delay(200);  // debounce
+        }
+        if (right) {
+            selectedGame = (selectedGame + 1) % NUM_GAMES;
+            showMenu();
+            delay(200);  // debounce
+        }
+        if (select) {
+            inMenu = false;
+            startGame(selectedGame);
+            delay(500);  // debounce
+        }
     }
-    if (right) {
-      selectedGame = (selectedGame + 1) % NUM_GAMES;
-      showMenu();
-      delay(200);  // debounce
-    }
-    if (select) {
-      inMenu = false;
-      // digitalWrite(ledPins[2], HIGH);
-      startGame(selectedGame);
-      delay(500);  // debounce
-    }
-  }
 }
 

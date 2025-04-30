@@ -3,7 +3,7 @@
 
 const uint8_t MAX_BUTTONS = 3;
 
-void whackGame(const int buttonPins[], const int ledPins[], Adafruit_SH1106G& display) {
+void whackGame(const uint8_t buttonPins[], const uint8_t ledPins[], Adafruit_SH1106G& display) {
     const uint8_t rounds = 20;
     const uint16_t timeLimit = 1000; // ms to respond
     uint8_t score = 0;
