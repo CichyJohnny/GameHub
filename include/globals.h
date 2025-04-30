@@ -18,7 +18,7 @@ extern const uint8_t buttonPins[6];
 extern const uint8_t MAX_BUTTONS;
 
 extern const uint8_t NUM_GAMES;
-extern const char* games[3];
+extern const char* games[4];
 
 extern int selectedGame;
 extern bool inMenu;

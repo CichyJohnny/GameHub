@@ -3,6 +3,7 @@
 #include "memory_game.h"
 #include "whack_game.h"
 #include "order_game.h"
+#include "duel_game.h"
 
 #include "util.h"
 
@@ -48,6 +49,9 @@ void startGame(int index) {
             break;
         case 2:
             orderGame();
+            break;
+        case 3:
+            duelGame();
             break;
 
         default:
