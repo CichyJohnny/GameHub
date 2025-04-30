@@ -56,8 +56,8 @@ void memoryGame() {
     display.clearDisplay();
     display.setCursor(0, 0);
     display.setTextSize(1);
-    display.println("Memory Game");
-    display.println("Repeat LED sequence");
+    display.println(F("Memory Game"));
+    display.println(F("Repeat LED sequence"));
     display.display();
     delay(1500);
 
@@ -65,7 +65,7 @@ void memoryGame() {
         display.clearDisplay();
         display.setCursor(0, 0);
         display.setTextSize(1);
-        display.print("Round: ");
+        display.print(F("Round: "));
         display.println(currentLength);
         display.display();
 
@@ -76,10 +76,10 @@ void memoryGame() {
         display.clearDisplay();
         display.setCursor(0, 20);
         display.setTextSize(2);
-        display.println("Game Over!");
+        display.println(F("Game Over!"));
         display.setCursor(0, 40);
         display.setTextSize(1);
-        display.print("Scored: ");
+        display.print(F("Scored: "));
         display.println(currentLength - 1);
         display.display();
         delay(4000);

@@ -12,8 +12,8 @@ void whackGame() {
     display.clearDisplay();
     display.setCursor(0, 0);
     display.setTextSize(1);
-    display.println("Whack-a-Button!");
-    display.println("Hit the LED fast!");
+    display.println(F("Whack-a-Button!"));
+    display.println(F("Hit the LED fast!"));
     display.display();
     delay(1500);
 
@@ -44,7 +44,7 @@ void whackGame() {
         display.clearDisplay();
         display.setCursor(0, 40);
         display.setTextSize(1);
-        display.print("Scored: ");
+        display.print(F("Scored: "));
         display.println(score);
         display.display();
     }
@@ -52,10 +52,10 @@ void whackGame() {
     display.clearDisplay();
     display.setCursor(0, 20);
     display.setTextSize(2);
-    display.println("Game Over!");
+    display.println(F("Game Over!"));
     display.setCursor(0, 40);
     display.setTextSize(1);
-    display.print("Scored: ");
+    display.print(F("Scored: "));
     display.println(score);
     display.display();
     delay(4000);

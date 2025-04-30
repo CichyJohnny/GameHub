@@ -2,7 +2,7 @@
 #include "globals.h"
 #include "memory_game.h"
 #include "whack_game.h"
-#include "direction_game.h"
+#include "order_game.h"
 
 #include "util.h"
 
@@ -12,12 +12,22 @@ void turnOffAllLeds(const uint8_t ledPins[], uint8_t numLeds) {
     }
 }
 
+int freeMemory() {
+    extern int __heap_start, *__brkval;
+    int v;
+    return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
+}
+
 void showMenu() {
     display.clearDisplay();
     display.setTextSize(1);
     display.setTextColor(SH110X_WHITE);
     display.setCursor(10, 10);
-    display.println("== Select Game ==");
+    display.println(F("== Select Game =="));
+
+    display.setTextSize(0);
+    display.setCursor(0, 50);
+    display.print(freeMemory());
 
     display.setCursor(30, 35);
     display.setTextSize(2);
@@ -27,13 +37,6 @@ void showMenu() {
 }
 
 void startGame(int index) {
-    display.clearDisplay();
-    display.setTextSize(1);
-    display.setCursor(10, 20);
-    display.print("Starting: ");
-    display.println(games[index]);
-    display.display();
-
     turnOffAllLeds(ledPins, MAX_BUTTONS); // Turn off all LEDs before starting a game
 
     switch (index) {
@@ -44,7 +47,7 @@ void startGame(int index) {
             whackGame();
             break;
         case 2:
-            directionGame();
+            orderGame();
             break;
 
         default:

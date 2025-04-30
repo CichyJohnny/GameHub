@@ -16,7 +16,7 @@ const uint8_t buttonPins[6] = {3, 5, 7, 9, 11, 13};
 const uint8_t MAX_BUTTONS = 3;
 
 const uint8_t NUM_GAMES = 3;
-const char* games[3] = {"Memory", "Whack", "Tetris"};
+const char* games[3] = {"Memory", "Whack", "Order"};
 
 int selectedGame = 0;
 bool inMenu = true;
