@@ -61,9 +61,11 @@ void setup() {
 
   Serial.begin(9600);
   delay(250);
+
   display.begin(i2c_Address, true);
   display.display();
   delay(500);
+
   display.clearDisplay();
 
   showMenu();
@@ -93,23 +95,8 @@ void loop() {
     }
     if (select) {
       inMenu = false;
-      digitalWrite(ledPins[2], HIGH);  // turn on select LED
+      digitalWrite(ledPins[2], HIGH);
       startGame(selectedGame);
-      delay(500);  // debounce
-    }
-  } else {
-    // Placeholder for game logic
-    display.clearDisplay();
-    display.setCursor(10, 20);
-    display.println("Game running...");
-    display.setCursor(10, 40);
-    display.println("BTN3 to exit");
-    display.display();
-
-    // Button 3 to go back to menu
-    if (!digitalRead(buttonPins[3])) {
-      inMenu = true;
-      showMenu();
       delay(500);  // debounce
     }
   }
