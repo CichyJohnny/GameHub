@@ -28,14 +28,14 @@ void whackGame() {
         while (millis() - startTime < timeLimit) {
         for (uint8_t i = 0; i < MAX_BUTTONS; i++) {
             if (!digitalRead(buttonPins[i])) {
-            if (i == target) {
-                score++;
-                hit = true;
+                if (i == target) {
+                    score++;
+                    hit = true;
+                }
+                break;
+                }
             }
-            break;
-            }
-        }
-        if (hit) break;
+            if (hit) break;
         }
 
         digitalWrite(ledPins[target], LOW);

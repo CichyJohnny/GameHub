@@ -8,8 +8,8 @@
 
 #include "util.h"
 
-void turnOffAllLeds(const uint8_t ledPins[], uint8_t numLeds) {
-    for (uint8_t i = 0; i < numLeds; i++) {
+void turnOffAllLeds() {
+    for (uint8_t i = 0; i < MAX_BUTTONS; i++) {
         digitalWrite(ledPins[i], LOW); // Turn off LED
     }
 }
@@ -39,7 +39,7 @@ void showMenu() {
 }
 
 void startGame(int index) {
-    turnOffAllLeds(ledPins, MAX_BUTTONS); // Turn off all LEDs before starting a game
+    turnOffAllLeds(); // Turn off all LEDs before starting a game
 
     switch (index) {
         case 0:

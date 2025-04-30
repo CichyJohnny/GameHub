@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "globals.h"
+
 #include "duel_game.h"
 
 #define MAX_PLAYERS 3

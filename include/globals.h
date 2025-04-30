@@ -1,8 +1,6 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
-#include <Arduino.h>
-#include <Wire.h>
 #include <Adafruit_SH110X.h>
 
 extern const uint8_t i2c_Address;
