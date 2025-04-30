@@ -3,27 +3,11 @@
 #include <Adafruit_SH110X.h>
 
 #include "util.h"
+#include "globals.h"
+
 #include "memory_game.h"
 #include "whack_game.h"
 
-#define i2c_Address 0x3c
-#define SCREEN_WIDTH 128
-#define SCREEN_HEIGHT 64
-#define OLED_RESET -1
-
-Adafruit_SH1106G display = Adafruit_SH1106G(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
-
-// Buttons: 0 = LEFT, 1 = RIGHT, 2 = SELECT, others unused for now
-const uint8_t ledPins[6] = {2, 4, 6, 8, 10, 12};
-const uint8_t buttonPins[6] = {3, 5, 7, 9, 11, 13};
-
-// === Game System ===
-const uint8_t MAX_BUTTONS = 3;
-const uint8_t NUM_GAMES = 3;
-const char* games[NUM_GAMES] = {"Memory", "Whack", "Tetris"};
-
-int selectedGame = 0;
-bool inMenu = true;
 
 // === Helpers ===
 void showMenu() {
