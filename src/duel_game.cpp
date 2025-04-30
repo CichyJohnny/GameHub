@@ -4,8 +4,6 @@
 
 #define MAX_PLAYERS 3
 #define ROUNDS 5
-#define MIN_WAIT_TIME 1000  // Minimum wait time in ms
-#define MAX_WAIT_TIME 5000  // Maximum wait time in ms
 
 void duelGame() {
     // Variables to track game state
@@ -29,13 +27,13 @@ void duelGame() {
     // Wait for player selection (buttons 1-3)
     while (numPlayers == 0) {
         for (int i = 0; i < 3; i++) {
-        if (!digitalRead(buttonPins[i])) {
-            numPlayers = i + 1;
-            digitalWrite(ledPins[i], HIGH);
-            delay(300);
-            digitalWrite(ledPins[i], LOW);
-            break;
-        }
+            if (!digitalRead(buttonPins[i])) {
+                numPlayers = i + 1;
+                digitalWrite(ledPins[i], HIGH);
+                delay(300);
+                digitalWrite(ledPins[i], LOW);
+                break;
+            }
         }
     }
     
@@ -59,7 +57,7 @@ void duelGame() {
         display.display();
         
         // Random wait time before LEDs turn on
-        delay(random(MIN_WAIT_TIME, MAX_WAIT_TIME));
+        delay(random(1000, 5000));
         
         // Turn on all LEDs for player count
         for (int i = 0; i < numPlayers; i++) {
