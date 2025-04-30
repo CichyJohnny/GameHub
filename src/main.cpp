@@ -9,6 +9,8 @@ void setup() {
         pinMode(buttonPins[i], INPUT_PULLUP);
     }
 
+    randomSeed(analogRead(A0));
+
     Serial.begin(9600);
     delay(250);
 

@@ -4,6 +4,7 @@
 #include "whack_game.h"
 #include "order_game.h"
 #include "duel_game.h"
+#include "quiz_game.h"
 
 #include "util.h"
 
@@ -52,6 +53,9 @@ void startGame(int index) {
             break;
         case 3:
             duelGame();
+            break;
+        case 4:
+            quizGame();
             break;
 
         default:

@@ -15,8 +15,8 @@ const uint8_t buttonPins[6] = {3, 5, 7, 9, 11, 13};
 
 const uint8_t MAX_BUTTONS = 3;
 
-const uint8_t NUM_GAMES = 4;
-const char* games[4] = {"Memory", "Whack", "Order", "Duel"};
+const uint8_t NUM_GAMES = 5;
+const char* games[5] = {"Memory", "Whack", "Order", "Duel", "Quiz"};
 
 int selectedGame = 0;
 bool inMenu = true;
