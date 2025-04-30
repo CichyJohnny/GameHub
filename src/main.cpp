@@ -1,7 +1,9 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <Adafruit_SH110X.h>
+
 #include "memory_game.h"
+#include "whack_game.h"
 
 #define i2c_Address 0x3c
 #define SCREEN_WIDTH 128
@@ -16,7 +18,7 @@ const int buttonPins[6] = {3, 5, 7, 9, 11, 13};
 
 // === Game System ===
 const int NUM_GAMES = 3;
-const char* games[NUM_GAMES] = {"Memory", "Snake", "Tetris"};
+const char* games[NUM_GAMES] = {"Memory", "Whack", "Tetris"};
 
 int selectedGame = 0;
 bool inMenu = true;
@@ -48,6 +50,10 @@ void startGame(int index) {
 
   if (index == 0) {
     memoryGame(buttonPins, ledPins, display);
+    inMenu = true;
+    showMenu();
+  } else if (index == 1) {
+    whackGame(buttonPins, ledPins, display);
     inMenu = true;
     showMenu();
   }
