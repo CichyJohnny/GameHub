@@ -1,7 +1,8 @@
 #include <Arduino.h>
+#include "globals.h"
+
 #include "memory_game.h"
 
-const uint8_t MAX_BUTTONS = 3;
 const uint8_t MAX_SEQUENCE = 32;
 uint8_t sequence[MAX_SEQUENCE];
 
@@ -11,7 +12,7 @@ void generateSequence(uint8_t length) {
     }
 }
 
-void playSequence(const uint8_t ledPins[], uint8_t length) {
+void playSequence(uint8_t length) {
     for (uint8_t i = 0; i < length; i++) {
         int index = sequence[i];
 
@@ -22,7 +23,7 @@ void playSequence(const uint8_t ledPins[], uint8_t length) {
     }
 }
 
-bool getPlayerInput(const uint8_t buttonPins[], const uint8_t ledPins[], uint8_t length) {
+bool getPlayerInput(uint8_t length) {
     for (uint8_t i = 0; i < length; i++) {
         bool pressed = false;
         unsigned long start = millis();
@@ -48,7 +49,7 @@ bool getPlayerInput(const uint8_t buttonPins[], const uint8_t ledPins[], uint8_t
     return true;
 }
 
-void memoryGame(const uint8_t buttonPins[], const uint8_t ledPins[], Adafruit_SH1106G& display) {
+void memoryGame() {
     uint8_t currentLength = 1;
     generateSequence(MAX_SEQUENCE);
 
@@ -69,9 +70,9 @@ void memoryGame(const uint8_t buttonPins[], const uint8_t ledPins[], Adafruit_SH
         display.display();
 
         delay(1000);
-        playSequence(ledPins, currentLength);
+        playSequence(currentLength);
 
-        if (!getPlayerInput(buttonPins, ledPins, currentLength)) {
+        if (!getPlayerInput(currentLength)) {
         display.clearDisplay();
         display.setCursor(0, 20);
         display.setTextSize(2);
