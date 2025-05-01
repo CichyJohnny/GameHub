@@ -31,16 +31,16 @@ bool getPlayerInput(uint8_t length) {
         while (!pressed && millis() - start < 10000) {  // 10s timeout
         for (uint8_t j = 0; j < MAX_BUTTONS; j++) {
             if (!digitalRead(buttonPins[j])) {
-            digitalWrite(ledPins[j], HIGH);
-            delay(300);
-            digitalWrite(ledPins[j], LOW);
+                digitalWrite(ledPins[j], HIGH);
+                delay(300);
+                digitalWrite(ledPins[j], LOW);
 
-            if (j != sequence[i]) return false;
+                if (j != sequence[i]) return false;
 
-            pressed = true;
-            delay(200);
+                pressed = true;
+                delay(200);
 
-            break;
+                break;
             }
         }
         }

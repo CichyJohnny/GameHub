@@ -6,6 +6,7 @@
 const uint8_t MAX_LENGTH = 10;
 uint8_t sequence2[MAX_LENGTH];
 const uint16_t TIME_LIMIT = 10000; // 10s per round
+const uint8_t START_ROUND = 3;
 
 void generateSequence2(uint8_t length) {
     for (uint8_t i = 0; i < length; i++) {
@@ -21,7 +22,7 @@ void showSequence(uint8_t length) {
 
     for (uint8_t i = 0; i < length; i++) {
         display.print(sequence2[i]);
-        display.print(" ");
+        display.print(F(" "));
     }
 
     display.display();
@@ -35,16 +36,16 @@ bool getUserInput(uint8_t length) {
         while (!pressed && millis() - start < 10000) {  // 10s timeout
         for (uint8_t j = 0; j < MAX_BUTTONS; j++) {
             if (!digitalRead(buttonPins[j])) {
-            digitalWrite(ledPins[j], HIGH);
-            delay(300);
-            digitalWrite(ledPins[j], LOW);
+                digitalWrite(ledPins[j], HIGH);
+                delay(300);
+                digitalWrite(ledPins[j], LOW);
 
-            if (j != sequence2[i]) return false;
+                if (j != sequence2[i]) return false;
 
-            pressed = true;
-            delay(200);
+                pressed = true;
+                delay(200);
 
-            break;
+                break;
             }
         }
         }
@@ -54,7 +55,7 @@ bool getUserInput(uint8_t length) {
 }
 
 void orderGame() {
-    uint8_t round2 = 3;
+    uint8_t round2 = START_ROUND;
 
     while (round2 <= MAX_LENGTH) {
         generateSequence2(round2);
@@ -67,8 +68,6 @@ void orderGame() {
         display.println(F("Repeat now!"));
         display.display();
 
-        delay(3000);
-
         if (getUserInput(round2)) {
             display.clearDisplay();
             display.setCursor(0, 20);
@@ -76,9 +75,7 @@ void orderGame() {
             display.println(F("Correct!"));
             display.display();
             delay(1000);
-            // if (round2 < MAX_LENGTH) {
-                round2++;
-            // }
+            round2++;
         } else {
             display.clearDisplay();
             display.setCursor(0, 20);
@@ -95,7 +92,7 @@ void orderGame() {
     display.setCursor(0, 0);
     display.println(F("Game Over!"));
     display.print(F("Rounds passed: "));
-    display.println(round2 - 5);
+    display.println(round2 - START_ROUND);
     display.display();
     delay(4000);
 }

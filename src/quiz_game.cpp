@@ -39,7 +39,9 @@ int waitForAnswer() {
     while (true) {
         for (int i = 0; i < 4; i++) {
             if (!digitalRead(buttonPins[i])) {
-                delay(200); // debounce
+                digitalWrite(ledPins[i], HIGH);
+                delay(300);
+                digitalWrite(ledPins[i], LOW);
                 return i;
             }
         }
